@@ -1,5 +1,5 @@
 export type GenerateFrameHTML = {
-    label?: string;
+    buttons?: {label?: string}[];
     imageSrc?: string;
     inputText?: string;
     postUrl?: string;

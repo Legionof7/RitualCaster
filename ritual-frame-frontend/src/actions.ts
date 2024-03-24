@@ -16,12 +16,8 @@ export const generateFrameHTML = (data: GenerateFrameHTML) => {
   if (data.postUrl) {
     payload.postUrl = data.postUrl;
   }
-  if (data.label) {
-    payload.buttons = [
-      {
-        label: data.label,
-      },
-    ];
+  if (data.buttons) {
+    payload.buttons = data.buttons;
   }
   return getFrameHtmlResponse({...payload});
 };

@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 // const frameMetadata = getFrameMetadata({
 //   buttons: [
 //     {
-//       label: "Convince Ritual AI to mint NFT!",
+//       label: "Enter the Temple. Prepare Your Prayer. Begin the Ritual.",
 //     },
 //   ],
 //   image: {
@@ -56,7 +56,7 @@ export default async function Page(props: any) {
         src={`${process.env.NEXT_PUBLIC_SITE_URL}/assets/get-started.jpg`}
       />
       {/* <FrameInput text="NA" /> */}
-      <FrameButton>Convince Ritual AI to mint NFT!</FrameButton>
+      <FrameButton>Enter the Temple. Prepare Your Prayer. Begin the Ritual.</FrameButton>
     </FrameContainer>
   );
 }

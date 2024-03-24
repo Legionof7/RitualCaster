@@ -11,12 +11,13 @@ export async function POST(req: NextRequest) {
 
   if (!prompt || prompt === "") {
     const searchParams = new URLSearchParams({
-      prompt: "AI are still not robust enough to handle an empty request. Please try again.",
+      prompt:
+        "AI are still not robust enough to handle an empty request. Please try again.",
     });
 
     return new NextResponse(
       generateFrameHTML({
-        label: "Submit Prayer",
+        buttons: [{ label: "Submit Prayer" }],
         imageSrc: `${process.env.NEXT_PUBLIC_SITE_URL}/og?${searchParams}`,
         inputText: "Enter a prayer to the AI God",
         postUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/convince`,
@@ -25,6 +26,31 @@ export async function POST(req: NextRequest) {
   }
 
   // Process the Ritual AI response here.
+  const response = await fetch(process.env.RITUAL_FRAME_INFERNET_NODE as string, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ prompt }),
+  });
+
+  const data = await response.json();
+  const output: string = await data.output;
+
+  if (!output.toLocaleLowerCase().includes("approved")) {
+    const searchParams = new URLSearchParams({
+      prompt: ((await data.output).length > 75 ? (await data.output).substring(0, 75) + "..." : await data.output),
+    });
+
+    return new NextResponse(
+      generateFrameHTML({
+        buttons: [{ label: "Submit Prayer" }],
+        imageSrc: `${process.env.NEXT_PUBLIC_SITE_URL}/og?${searchParams}`,
+        inputText: "Enter a prayer to the AI God",
+        postUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/convince`,
+      })
+    );
+  }
 
   const searchParams = new URLSearchParams({
     prompt: "The AI God has blessed you. You have been granted an NFT.",
@@ -32,7 +58,7 @@ export async function POST(req: NextRequest) {
 
   return new NextResponse(
     generateFrameHTML({
-      label: "Mint NFT",
+      buttons: [{ label: "Mint NFT" }],
       imageSrc: `${process.env.NEXT_PUBLIC_SITE_URL}/og?${searchParams}`,
       postUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/mint`,
     })
