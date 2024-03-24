@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   init(process.env.AIRSTACK_API_KEY ?? "");
   const body = await req.json();
-  const { isValid } = await validateFramesMessage(body);
+  const { isValid, message } = await validateFramesMessage(body);
 
   if (!isValid) {
     const searchParams = new URLSearchParams({
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { addr } = body;
+  const addr = message?.data?.frameActionBody.address ?? '0x0';
   const searchParams = new URLSearchParams({
     prompt: "You have been granted an NFT.",
   });
