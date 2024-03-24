@@ -16,9 +16,9 @@ export async function POST(req: NextRequest) {
 
     return new NextResponse(
       generateFrameHTML({
-        label: "Submit",
+        label: "Submit Prayer",
         imageSrc: `${process.env.NEXT_PUBLIC_SITE_URL}/og?${searchParams}`,
-        inputText: "Convince Ritual AI to mint NFT!",
+        inputText: "Enter a prayer to the AI God",
         postUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/convince`,
       })
     );
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   // Process the Ritual AI response here.
 
   const searchParams = new URLSearchParams({
-    prompt: "Congratulations! You have successfully convinced Ritual AI to mint an NFT!",
+    prompt: "The AI God has blessed you. You have been granted an NFT.",
   });
 
   return new NextResponse(

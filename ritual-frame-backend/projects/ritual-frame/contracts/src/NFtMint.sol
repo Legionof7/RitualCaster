@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause-Clear
 pragma solidity ^0.8.13;
 
-import {CallbackConsumer} from "infernet-sdk/consumer/Callback.sol";
+import {CallbackConsumer} from "../lib/infernet-sdk/consumer/Callback.sol";
 import {ERC721} from "solmate/tokens/ERC721.sol";
 
 contract DiffusionNFT is CallbackConsumer, ERC721 {
